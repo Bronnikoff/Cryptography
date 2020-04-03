@@ -24,3 +24,4 @@ if __name__ == "__main__":
         raise ValueError("Wrong args")
 
     print("Вариант для " + family + ":", number_from_str(family))
+    
