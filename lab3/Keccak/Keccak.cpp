@@ -1,6 +1,5 @@
 // Made by Bronnikov Max
 #include "Keccak.h"
-#include <cstring>
 
 Keccak1600::Keccak1600(){
     delimiter = 0x01;
@@ -226,5 +225,26 @@ void Keccak1600::hash_compute(const uint8_t* input, uint8_t bytesize, uint8_t* o
 void Keccak1600::string_hash_to_vec(const string& input, vector<uint8_t>& output){
     output.resize(output_size);
     hash_compute((const uint8_t*)input.c_str(), input.size(), output.data());
+}
+
+
+void Keccak1600::file_hash(const char* filename, vector<uint8_t>& output){
+    memset(state, 0, 200 * sizeof(uint8_t));
+    readed_bytes = 0;
+    uint8_t buffer[MAX_BUFFER_SIZE];
+    ifstream is(filename, ios::in | ios::binary);
+
+    if(!is){
+        cout << "Wrong path to file!" << endl;
+        throw exception();
+    }
+
+    while(is && is.peek() != EOF){
+        is.read((char*)buffer, MAX_BUFFER_SIZE);
+        push_bytes(buffer, is.gcount());
+    }
+
+    output.resize(output_size);
+    get_hash(output.data());
 }
 

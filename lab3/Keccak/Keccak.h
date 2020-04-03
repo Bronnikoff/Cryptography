@@ -7,8 +7,12 @@
 #include <vector>
 #include <inttypes.h>
 #include <exception>
+#include <fstream>
+#include <cstring>
 
 using namespace std;
+
+#define MAX_BUFFER_SIZE 4096
 
 
 // you can absorve this by many blocks for many times or compute and return hash for 1 input block
@@ -35,6 +39,8 @@ public:
     void hash_compute(const uint8_t* input, uint8_t bytesize, uint8_t* output); // if need compute and return hash of 1 block use this
 
     void string_hash_to_vec(const string& input, vector<uint8_t>& output);
+
+    void file_hash(const char* filename, vector<uint8_t>& output);
     
 private:
 
@@ -55,9 +61,10 @@ private:
 
     uint8_t LFSRState;
 
-
     const uint8_t lenght = 6;
+
     const uint16_t bits = 1600;
+
     uint16_t capacity; // in bytes
     uint16_t rate; // in bytes
 
