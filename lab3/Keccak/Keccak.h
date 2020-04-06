@@ -78,7 +78,4 @@ private:
     uint16_t nrounds;
 };
 
-
-
-
 #endif

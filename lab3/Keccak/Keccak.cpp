@@ -247,4 +247,3 @@ void Keccak1600::file_hash(const char* filename, vector<uint8_t>& output){
     output.resize(output_size);
     get_hash(output.data());
 }
-
